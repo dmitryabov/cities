@@ -10,6 +10,7 @@ module.exports = {
     contentBase: path.resolve(__dirname, "public"),
     open: true,
     port: 1337,
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -18,9 +19,6 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
-        },
-        options: {
-          fix: true,
         },
       },
     ],
