@@ -1,6 +1,8 @@
 import React from 'react';
 import Card from '../card/card';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
+import HeaderPage from '../header/header';
 
 
 const Main = (props) => {
@@ -8,6 +10,8 @@ const Main = (props) => {
   const cardsId = [1, 2, 3, 4, 5];
 
   return (
+    <div className="page page--gray page--main">
+      <HeaderPage />
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
@@ -76,6 +80,7 @@ const Main = (props) => {
         </div>
       </div>
     </main>
+    </div>
 
   );
 };
