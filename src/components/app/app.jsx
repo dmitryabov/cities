@@ -27,10 +27,10 @@ const App = (props) => {
           <Property />
         </Route>
         <Route>
-           <NotFoundScreen/>
+          <NotFoundScreen/>
         </Route>
         <Route>
-           <NotFoundScreen/>
+          <NotFoundScreen/>
         </Route>
       </Switch>
     </BrowserRouter>
