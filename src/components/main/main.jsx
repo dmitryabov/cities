@@ -1,12 +1,12 @@
 import React from 'react';
-import Card from '../card/card';
 import PropTypes from 'prop-types';
 import HeaderPage from '../header/header';
+import OffersList from '../offers-list/offers-list';
+import {offerType} from '../../propTypes/cities';
 
 
 const Main = (props) => {
-  const {placesCount} = props;
-  const cardsId = [1, 2, 3, 4, 5];
+  const {placesCount, offers} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -69,9 +69,7 @@ const Main = (props) => {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {cardsId.map((card, i) => <Card key= {card + i}/>)}
-              </div>
+              <OffersList offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
@@ -86,6 +84,6 @@ const Main = (props) => {
 
 Main.propTypes = {
   placesCount: PropTypes.number.isRequired,
-};
+  offers: PropTypes.arrayOf(offerType)};
 
 export default Main;
