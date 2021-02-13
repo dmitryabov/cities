@@ -6,24 +6,25 @@ import Favorites from '../favorites/favorites';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Property from '../property/property';
 import Login from '../login/login';
+import {offerType} from '../../propTypes/cities';
 
 
 const App = (props) => {
-  const {placesCount} = props;
+  const {placesCount, offers} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Main placesCount={placesCount}/>
+          <Main placesCount={placesCount} offers={offers}/>
         </Route>
         <Route exact path="/login">
           <Login />
         </Route>
         <Route exact path="/favorites">
-          <Favorites />
+          <Favorites offers={offers}/>
         </Route>
-        <Route exact path="/property">
+        <Route exact path="/offer/:id">
           <Property />
         </Route>
         <Route>
@@ -39,6 +40,7 @@ const App = (props) => {
 
 App.propTypes = {
   placesCount: PropTypes.number.isRequired,
+  offers: PropTypes.arrayOf(offerType),
 };
 
 export default App;

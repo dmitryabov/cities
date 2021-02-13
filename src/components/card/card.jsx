@@ -1,13 +1,23 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {offerType} from '../../propTypes/cities';
 
 
-const Card = () => {
+const Card = (props) => {
+  const {offer, getActiveCard} = props;
+  const {id, title} = offer;
+
+  const onMouseEnterHandler = () => {
+    getActiveCard(id);
+  };
+
+
   return (
-    <article className="cities__place-card place-card">
+    <article className="cities__place-card place-card" onMouseEnter={onMouseEnterHandler}>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to="/property">
-          <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image"/>
+        <Link to={`/offer/${id}`}>
+          <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image" id={id}/>
         </Link>
       </div>
       <div className="place-card__info">
@@ -30,12 +40,18 @@ const Card = () => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to="/property">Wood and stone place</Link>
+          <Link to={`/offer/${id}`}>{title}</Link>property
         </h2>
         <p className="place-card__type">Private room</p>
       </div>
     </article>
   );
+};
+
+
+Card.propTypes = {
+  offer: offerType,
+  getActiveCard: PropTypes.func.isRequired
 };
 
 export default Card;
