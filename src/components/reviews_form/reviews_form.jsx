@@ -1,7 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 
 const ReviewsForm = () => {
+  const [userComment, setUserComment] = useState(``);
+  const handleInputChange = (evt) => {
+    setUserComment(evt.target.value);
+  };
+
+  const handleSubmitButtonClick = (event) => {
+    event.preventDefault();
+    console.log(userComment);
+  };
+
+
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className ="reviews__label form__label" htmlFor="review"
@@ -97,6 +108,7 @@ const ReviewsForm = () => {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
+        onChange={handleInputChange}
       ></textarea>
       <div className ="reviews__button-wrapper">
         <p className ="reviews__help">
@@ -109,6 +121,7 @@ const ReviewsForm = () => {
           className="reviews__submit form__submit button"
           type="submit"
           disabled=""
+          onClick={handleSubmitButtonClick}
         >
         Submit
         </button>
