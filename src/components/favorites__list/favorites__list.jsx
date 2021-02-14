@@ -13,10 +13,16 @@ const FavoritesList = (props) => {
     return offer;
   }, {});
 
-  const sameOffers = [];
-  for (let key in map) {
-    sameOffers.push(map[key]);
-  }
+  const setSameOffers = () => {
+    const sameOffers = [];
+    for (let key in map) {
+      sameOffers.push(map[key]);
+    }
+    return sameOffers;
+  };
+
+  let sameOffers = setSameOffers();
+
 
   return (
     <ul className="favorites__list">

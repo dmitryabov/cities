@@ -24,8 +24,13 @@ const App = (props) => {
         <Route exact path="/favorites">
           <Favorites offers={offers}/>
         </Route>
-        <Route exact path="/offer/:id">
-          <Property />
+        <Route exact path="/offer/:id"
+            render={({match}) => {
+              const {id} = match.params;
+              const offer = offers.find((item) => item.id === +id);
+              return <Property offer={offer}/>
+              ;
+            }}>
         </Route>
         <Route>
           <NotFoundScreen/>
