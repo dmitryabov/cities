@@ -3,10 +3,13 @@ import HeaderPage from '../header/header';
 import ReviewsForm from '../reviews_form/reviews_form';
 import PropTypes from 'prop-types';
 import {offerType} from '../../propTypes/cities';
+import { getRatingLevel } from '../../common/utils';
 
 
 const Property = (props) => {
   const {offer} = props;
+  const {is_premium, is_favorite} = offer;
+
 
   return (
     <div className="page">
@@ -57,14 +60,17 @@ const Property = (props) => {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              <div className="property__mark">
+              { is_premium ?
+                <div className="property__mark">
                 <span>Premium</span>
               </div>
+              : ``
+              }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-           {offer.description}
+                  {offer.description}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button className={`property__bookmark-button ${ is_favorite ? `property__bookmark-button--active` : ``} button`} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use href="#icon-bookmark"></use>
                   </svg>
@@ -73,7 +79,7 @@ const Property = (props) => {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `80%`}}></span>
+                  <span style={{width: `${getRatingLevel(offer.rating)}`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{offer.rating}</span>
@@ -81,10 +87,10 @@ const Property = (props) => {
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">{offer.type}</li>
                 <li className="property__feature property__feature--bedrooms">
-            {offer.bedrooms} Bedrooms
+                  {offer.bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-            Max {offer.max_adults} adults
+                  Max {offer.max_adults} adults
                 </li>
               </ul>
               <div className="property__price">
