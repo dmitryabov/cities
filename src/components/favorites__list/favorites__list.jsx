@@ -1,28 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {offerType} from '../../propTypes/cities';
+import { getRatingLevel } from '../../common/utils';
+import {Link} from 'react-router-dom';
 
 
 const FavoritesList = (props) => {
   const {offers} = props;
 
 
-  const map = offers.reduce((offer, i) => {
+  const favoriteOffers = offers.filter(person => person.is_favorite === true);
+
+  const identicalСities = favoriteOffers.reduce((offer, i) => {
     offer[i.city.name] = offer[i.city.name] || [];
     offer[i.city.name].push(i);
+
     return offer;
   }, {});
 
+
   const setSameOffers = () => {
     const sameOffers = [];
-    for (let key in map) {
-      sameOffers.push(map[key]);
+    for (let key in identicalСities) {
+      sameOffers.push(identicalСities[key]);
     }
     return sameOffers;
   };
 
   let sameOffers = setSameOffers();
-
 
   return (
     <ul className="favorites__list">
@@ -43,9 +48,9 @@ const FavoritesList = (props) => {
                   return (
                     <article className="favorites__card place-card" key={offer.id + j}>
                       <div className="favorites__image-wrapper place-card__image-wrapper">
-                        <a href="#">
-                          <img className="place-card__image" src="img/apartment-small-03.jpg" width="150" height="110" alt="Place image"/>
-                        </a>
+                      <Link to={`/offer/${offer.id}`}>
+                        <img className="place-card__image" src="img/room.jpg" width="150" height="110" alt="Place image" id={offer.id}/>
+                       </Link>
                       </div>
                       <div className="favorites__card-info place-card__info">
                         <div className="place-card__price-wrapper">
@@ -62,7 +67,7 @@ const FavoritesList = (props) => {
                         </div>
                         <div className="place-card__rating rating">
                           <div className="place-card__stars rating__stars">
-                            <span style={{width: `100%`}}></span>
+                            <span style={{width: `${getRatingLevel(offer.rating)}`}}></span>
                             <span className="visually-hidden">Rating</span>
                           </div>
                         </div>
