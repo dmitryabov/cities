@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import HeaderPage from '../header/header';
 import OffersList from '../offers-list/offers-list';
 import {offerType} from '../../propTypes/cities';
+import MapOffers from '../map/map';
 
 
 const Main = (props) => {
@@ -71,9 +72,7 @@ const Main = (props) => {
               </form>
               <OffersList offers={offers}/>
             </section>
-            <div className="cities__right-section">
-              <section className="cities__map map"></section>
-            </div>
+            <MapOffers/>
           </div>
         </div>
       </main>
