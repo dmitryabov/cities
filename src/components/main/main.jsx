@@ -1,13 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import HeaderPage from '../header/header';
 import OffersList from '../offers-list/offers-list';
 import {offerType} from '../../propTypes/cities';
 import MapOffers from '../map/map';
+import Location from '../location/location';
 
 
 const Main = (props) => {
   const {placesCount, offers} = props;
+
+  const [activeCity, setActiveCity] = useState(0);
+
+  const getActiveCard = (activ) => {
+    setActiveCity(activ);
+  };
+
+
+  const uniqueCityNames = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
+
+  const copyOffers = offers.slice();
+
+  let offesrForOneCity = copyOffers.filter((n) => n.city.name === uniqueCityNames[activeCity]);
+
 
   return (
     <div className="page page--gray page--main">
@@ -17,36 +32,11 @@ const Main = (props) => {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
+              {uniqueCityNames.map((cityName, i) => {
+                return (
+                  <Location cityName={cityName} key={cityName + i} id={i} activeCity={activeCity === i ? true : false} getActiveCard={getActiveCard}/>
+                );
+              })}
             </ul>
           </section>
         </div>
@@ -58,7 +48,7 @@ const Main = (props) => {
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
-              Popular
+                   Popular
                   <svg className="places__sorting-arrow" width="7" height="4">
                     <a href="#icon-arrow-select"></a>
                   </svg>
@@ -70,9 +60,9 @@ const Main = (props) => {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <OffersList offers={offers}/>
+              <OffersList offers={offesrForOneCity}/>
             </section>
-            <MapOffers/>
+            <MapOffers offers={offesrForOneCity}/>
           </div>
         </div>
       </main>

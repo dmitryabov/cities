@@ -1,45 +1,63 @@
-import React, { useEffect, useRef } from "react";
+import React, {useEffect, useRef} from "react";
 import leaflet from "leaflet";
+
+import PropTypes from "prop-types";
+import {offerType} from "../../propTypes/cities";
 
 import "leaflet/dist/leaflet.css";
 
-const MapOffers = () => {
+const MapOffers = ({offers}) => {
+  const mapRef = useRef();
+
   useEffect(() => {
-    const city = [52.38333, 4.9];
+    mapRef.current = leaflet.map(`map`, {
+      center: {
+        lat: offers[0].city.location.latitude,
+        lng: offers[0].city.location.longitude,
+      },
+      zoom: offers[0].city.location.zoom,
+    });
+
+    leaflet
+      .tileLayer(
+          `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`,
+          {
+            attribution:
+            `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`,
+          }
+      )
+      .addTo(mapRef.current);
 
     const icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
       iconSize: [30, 30],
     });
 
-    const zoom = 12;
-    const map = leaflet.map(`map`, {
-      center: city,
-      zoom: zoom,
-      zoomControl: true,
-      marker: true,
+    offers.forEach((elem) => {
+      leaflet
+        .marker(
+            {
+              lat: elem.location.latitude,
+              lng: elem.location.longitude,
+            },
+            {icon}
+        )
+        .addTo(mapRef.current);
     });
-    map.setView(city, zoom);
-
-    leaflet
-      .tileLayer(
-        `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`,
-        {
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        }
-      )
-      .addTo(map);
-
-    const offerCords = [52.3709553943508, 4.89309666406198];
-    leaflet.marker(offerCords, { icon }).addTo(map);
-  }, []);
+    return () => {
+      mapRef.current.remove();
+    };
+  }, [offers]);
 
   return (
     <div className="cities__right-section">
-      <section className="cities__map map" id="map"></section>
+      <section className="cities__map map" id="map" ref={mapRef}></section>
     </div>
   );
+};
+
+MapOffers.propTypes = {
+  offers: PropTypes.arrayOf(offerType),
 };
 
 export default MapOffers;
