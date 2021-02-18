@@ -3,7 +3,7 @@ import HeaderPage from '../header/header';
 import ReviewsForm from '../reviews_form/reviews_form';
 import PropTypes from 'prop-types';
 import {offerType} from '../../propTypes/cities';
-import { getRatingLevel } from '../../common/utils';
+import {getRatingLevel} from '../../common/utils';
 
 
 const Property = (props) => {
@@ -62,9 +62,9 @@ const Property = (props) => {
             <div className="property__wrapper">
               { is_premium ?
                 <div className="property__mark">
-                <span>Premium</span>
-              </div>
-              : ``
+                  <span>Premium</span>
+                </div>
+                : ``
               }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
@@ -100,8 +100,8 @@ const Property = (props) => {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                {offer.goods.map((property, i) => {
-                  return  <li className="property__inside-item" key={property + i}>{property}</li>
+                  {offer.goods.map((property, i) => {
+                    return <li className="property__inside-item" key={property + i}>{property}</li>;
                   })}
                 </ul>
               </div>

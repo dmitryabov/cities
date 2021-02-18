@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {offerType} from '../../propTypes/cities';
-import { getRatingLevel } from '../../common/utils';
+import {getRatingLevel} from '../../common/utils';
 
 
 const Card = (props) => {
@@ -36,7 +36,7 @@ const Card = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-          <span style={{width: `${getRatingLevel(rating)}`}}></span>
+            <span style={{width: `${getRatingLevel(rating)}`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

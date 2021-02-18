@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {offerType} from '../../propTypes/cities';
-import { getRatingLevel } from '../../common/utils';
+import {getRatingLevel} from '../../common/utils';
 import {Link} from 'react-router-dom';
 
 
@@ -9,7 +9,7 @@ const FavoritesList = (props) => {
   const {offers} = props;
 
 
-  const favoriteOffers = offers.filter(person => person.is_favorite === true);
+  const favoriteOffers = offers.filter((person) => person.is_favorite === true);
 
   const identicalСities = favoriteOffers.reduce((offer, i) => {
     offer[i.city.name] = offer[i.city.name] || [];
@@ -48,9 +48,9 @@ const FavoritesList = (props) => {
                   return (
                     <article className="favorites__card place-card" key={offer.id + j}>
                       <div className="favorites__image-wrapper place-card__image-wrapper">
-                      <Link to={`/offer/${offer.id}`}>
-                        <img className="place-card__image" src="img/room.jpg" width="150" height="110" alt="Place image" id={offer.id}/>
-                       </Link>
+                        <Link to={`/offer/${offer.id}`}>
+                          <img className="place-card__image" src="img/room.jpg" width="150" height="110" alt="Place image" id={offer.id}/>
+                        </Link>
                       </div>
                       <div className="favorites__card-info place-card__info">
                         <div className="place-card__price-wrapper">
