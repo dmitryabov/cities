@@ -6,7 +6,7 @@ import {offerType} from "../../propTypes/cities";
 
 import "leaflet/dist/leaflet.css";
 
-const MapOffers = ({offers}) => {
+const MapOffers = ({offers, classNameMap}) => {
   const mapRef = useRef();
 
   useEffect(() => {
@@ -16,14 +16,14 @@ const MapOffers = ({offers}) => {
         lng: offers[0].city.location.longitude,
       },
       zoom: offers[0].city.location.zoom,
+      maxWidth: 100,
     });
 
     leaflet
       .tileLayer(
           `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`,
           {
-            attribution:
-            `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`,
+            attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`,
           }
       )
       .addTo(mapRef.current);
@@ -50,14 +50,13 @@ const MapOffers = ({offers}) => {
   }, [offers]);
 
   return (
-    <div className="cities__right-section">
-      <section className="cities__map map" id="map" ref={mapRef}></section>
-    </div>
+    <section className={`${classNameMap} map`} id="map" ref={mapRef}></section>
   );
 };
 
 MapOffers.propTypes = {
   offers: PropTypes.arrayOf(offerType),
+  classNameMap: PropTypes.string,
 };
 
 export default MapOffers;

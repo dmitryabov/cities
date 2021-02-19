@@ -62,7 +62,9 @@ const Main = (props) => {
               </form>
               <OffersList offers={offesrForOneCity}/>
             </section>
-            <MapOffers offers={offesrForOneCity}/>
+            <div className="cities__right-section">
+              <MapOffers offers={offesrForOneCity} classNameMap={`cities__map`}/>
+            </div>
           </div>
         </div>
       </main>
