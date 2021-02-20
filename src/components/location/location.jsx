@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../store/action';
 
 
-const Location = ({cityName, activeCity, getActiveCard, id}) => {
+const Location = ({cityName, activeCity, id, onActiveCity}) => {
 
   const onLocationClicjHandler = () => {
-    getActiveCard(id);
+    onActiveCity(id);
   };
 
   return (
@@ -21,8 +23,16 @@ const Location = ({cityName, activeCity, getActiveCard, id}) => {
 Location.propTypes = {
   cityName: PropTypes.string.isRequired,
   activeCity: PropTypes.bool.isRequired,
-  getActiveCard: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
+  onActiveCity: PropTypes.func.isRequired,
 };
 
-export default Location;
+
+const mapDispatchToProps = (dispatch) => ({
+  onActiveCity(city) {
+    dispatch(ActionCreator.changeCity(city));
+  },
+});
+
+export {Location};
+export default connect(null, mapDispatchToProps)(Location);

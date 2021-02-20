@@ -5,23 +5,16 @@ import OffersList from '../offers-list/offers-list';
 import {offerType} from '../../propTypes/cities';
 import MapOffers from '../map/map';
 import Location from '../location/location';
+import {connect} from 'react-redux';
+import {CityNames} from '../../const';
 
 
 const Main = (props) => {
-  const {placesCount, offers} = props;
-
-  const [activeCity, setActiveCity] = useState(0);
-
-  const getActiveCard = (activ) => {
-    setActiveCity(activ);
-  };
-
-
-  const uniqueCityNames = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
+  const { offers, city} = props;
 
   const copyOffers = offers.slice();
 
-  let offesrForOneCity = copyOffers.filter((n) => n.city.name === uniqueCityNames[activeCity]);
+  let offesrForOneCity = copyOffers.filter((n) => n.city.name === CityNames[city]);
 
 
   return (
@@ -32,9 +25,9 @@ const Main = (props) => {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {uniqueCityNames.map((cityName, i) => {
+              {CityNames.map((cityName, i) => {
                 return (
-                  <Location cityName={cityName} key={cityName + i} id={i} activeCity={activeCity === i ? true : false} getActiveCard={getActiveCard}/>
+                  <Location cityName={cityName} key={cityName + i} id={i} activeCity={city === i ? true : false}/>
                 );
               })}
             </ul>
@@ -44,7 +37,7 @@ const Main = (props) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placesCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offesrForOneCity.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -74,7 +67,16 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  placesCount: PropTypes.number.isRequired,
-  offers: PropTypes.arrayOf(offerType)};
+  offers: PropTypes.arrayOf(offerType),
+  city: PropTypes.number.isRequired,
+};
 
-export default Main;
+  const mapStateToProps = (state) => ({
+    city: state.city,
+
+  });
+
+
+
+  export {Main};
+  export default connect(mapStateToProps, null)(Main);
