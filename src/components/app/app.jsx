@@ -11,13 +11,13 @@ import {reviewsType} from '../../propTypes/reviews';
 
 
 const App = (props) => {
-  const {placesCount, offers, reviews} = props;
+  const { offers, reviews} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Main placesCount={placesCount} offers={offers}/>
+          <Main offers={offers}/>
         </Route>
         <Route exact path="/login">
           <Login />
@@ -46,7 +46,6 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  placesCount: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(offerType),
   reviews: PropTypes.arrayOf(reviewsType),
 };
