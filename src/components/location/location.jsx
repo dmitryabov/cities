@@ -7,7 +7,7 @@ import {ActionCreator} from '../../store/action';
 const Location = ({cityName, activeCity, id, onActiveCity}) => {
 
   const onLocationClicjHandler = () => {
-    onActiveCity(id);
+    onActiveCity(cityName);
   };
 
   return (

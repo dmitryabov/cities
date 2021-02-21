@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import HeaderPage from '../header/header';
 import OffersList from '../offers-list/offers-list';
@@ -7,14 +7,21 @@ import MapOffers from '../map/map';
 import Location from '../location/location';
 import {connect} from 'react-redux';
 import {CityNames} from '../../const';
+import PlacesSorting from '../places-sorting/places-sorting';
+import { sortOffers } from '../../common/utils';
 
 
 const Main = (props) => {
-  const { offers, city} = props;
+  const {offers, city, placesOptionActive} = props;
 
   const copyOffers = offers.slice();
 
-  let offesrForOneCity = copyOffers.filter((n) => n.city.name === CityNames[city]);
+
+  let offesrForOneCity = copyOffers.filter((n) => n.city.name === city)
+
+  let sortedOffers = sortOffers(offesrForOneCity, placesOptionActive)
+
+
 
 
   return (
@@ -37,26 +44,12 @@ const Main = (props) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offesrForOneCity.length} places to stay in Amsterdam</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex="0">
-                   Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <a href="#icon-arrow-select"></a>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                  <li className="places__option" tabIndex="0">Price: low to high</li>
-                  <li className="places__option" tabIndex="0">Price: high to low</li>
-                  <li className="places__option" tabIndex="0">Top rated first</li>
-                </ul>
-              </form>
-              <OffersList offers={offesrForOneCity}/>
+              <b className="places__found">{sortedOffers.length} places to stay in {CityNames[city]}</b>
+              <PlacesSorting/>
+              <OffersList offers={sortedOffers}/>
             </section>
             <div className="cities__right-section">
-              <MapOffers offers={offesrForOneCity} classNameMap={`cities__map`}/>
+              <MapOffers offers={sortedOffers} classNameMap={`cities__map`}/>
             </div>
           </div>
         </div>
@@ -68,15 +61,15 @@ const Main = (props) => {
 
 Main.propTypes = {
   offers: PropTypes.arrayOf(offerType),
-  city: PropTypes.number.isRequired,
+  city: PropTypes.string.isRequired,
 };
 
-  const mapStateToProps = (state) => ({
-    city: state.city,
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offers: state.offers,
+  placesOptionActive: state.placesOptionActive
+});
 
-  });
 
-
-
-  export {Main};
-  export default connect(mapStateToProps, null)(Main);
+export {Main};
+export default connect(mapStateToProps, null)(Main);

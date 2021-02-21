@@ -8,29 +8,30 @@ import Property from '../property/property';
 import Login from '../login/login';
 import {offerType} from '../../propTypes/cities';
 import {reviewsType} from '../../propTypes/reviews';
+import {connect} from 'react-redux';
 
 
 const App = (props) => {
-  const { offers, reviews} = props;
+  const {offers, reviews} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Main offers={offers}/>
+          <Main />
         </Route>
         <Route exact path="/login">
           <Login />
         </Route>
         <Route exact path="/favorites">
-          <Favorites offers={offers}/>
+          <Favorites/>
         </Route>
         <Route exact path="/offer/:id"
           render={({match}) => {
             const {id} = match.params;
             const offer = offers.find((item) => item.id === +id);
             const cardReviews = reviews.filter((item) => item.id === +id);
-            return <Property offer={offer} cardReviews={cardReviews} offers={offers}/>
+            return <Property offer={offer} cardReviews={cardReviews}/>
             ;
           }}>
         </Route>
@@ -50,4 +51,11 @@ App.propTypes = {
   reviews: PropTypes.arrayOf(reviewsType),
 };
 
-export default App;
+
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+});
+
+
+export {App};
+export default connect(mapStateToProps, null)(App);
