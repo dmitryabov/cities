@@ -9,7 +9,6 @@ const ReviewsForm = () => {
 
   const handleSubmitButtonClick = (event) => {
     event.preventDefault();
-    console.log(userComment);
   };
 
 

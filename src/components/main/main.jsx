@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import HeaderPage from '../header/header';
 import OffersList from '../offers-list/offers-list';
@@ -8,7 +8,7 @@ import Location from '../location/location';
 import {connect} from 'react-redux';
 import {CityNames} from '../../const';
 import PlacesSorting from '../places-sorting/places-sorting';
-import { sortOffers } from '../../common/utils';
+import {sortOffers} from '../../common/utils';
 
 
 const Main = (props) => {
@@ -17,11 +17,9 @@ const Main = (props) => {
   const copyOffers = offers.slice();
 
 
-  let offesrForOneCity = copyOffers.filter((n) => n.city.name === city)
+  let offesrForOneCity = copyOffers.filter((n) => n.city.name === city);
 
-  let sortedOffers = sortOffers(offesrForOneCity, placesOptionActive)
-
-
+  let sortedOffers = sortOffers(offesrForOneCity, placesOptionActive);
 
 
   return (
@@ -34,7 +32,7 @@ const Main = (props) => {
             <ul className="locations__list tabs__list">
               {CityNames.map((cityName, i) => {
                 return (
-                  <Location cityName={cityName} key={cityName + i} id={i} activeCity={city === i ? true : false}/>
+                  <Location cityName={cityName} key={cityName + i} id={i} activeCity={city === CityNames[i] ? true : false}/>
                 );
               })}
             </ul>
@@ -44,7 +42,7 @@ const Main = (props) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{sortedOffers.length} places to stay in {CityNames[city]}</b>
+              <b className="places__found">{sortedOffers.length} places to stay in {city}</b>
               <PlacesSorting/>
               <OffersList offers={sortedOffers}/>
             </section>
@@ -62,12 +60,13 @@ const Main = (props) => {
 Main.propTypes = {
   offers: PropTypes.arrayOf(offerType),
   city: PropTypes.string.isRequired,
+  placesOptionActive: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers,
-  placesOptionActive: state.placesOptionActive
+  placesOptionActive: state.placesOptionActive,
 });
 
 

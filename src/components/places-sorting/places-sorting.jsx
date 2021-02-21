@@ -1,41 +1,48 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {PlacesOptions} from '../../const';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
+import PropTypes from 'prop-types';
 
 
 const PlacesSorting = ({placesOptionActive, onActiveOption}) => {
 
-  const [placesOption, setPlacesOption] = useState(false)
+  const [placesOption, setPlacesOption] = useState(false);
 
   const formHoverHandler = () => {
-    setPlacesOption(!placesOption)
-  }
+    setPlacesOption(!placesOption);
+  };
 
 
   return (
     <form className="places__sorting" action="#" method="get" onMouseEnter={formHoverHandler} onMouseLeave={formHoverHandler}>
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex="0">
-                  {placesOptionActive}
+        {placesOptionActive}
         <svg className="places__sorting-arrow" width="7" height="4">
           <a href="#icon-arrow-select"></a>
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${placesOption && `places__options--opened`}`} >
         {PlacesOptions.map((PlacesOption, i) => {
-           const placeOptionClickHandler = () => {
-            onActiveOption(PlacesOption)
-          }
+          const placeOptionClickHandler = () => {
+            onActiveOption(PlacesOption);
+          };
           return (
-             <li  className={`places__option ${placesOptionActive === i && `places__option--active`}`} tabIndex="0" key={PlacesOption + i} onClick={placeOptionClickHandler}>{PlacesOption}</li>
-          )
+            <li className={`places__option ${onActiveOption === PlacesOptions[i] && `places__option--active`}`} tabIndex="0" key={PlacesOption + i} onClick={placeOptionClickHandler}>{PlacesOption}</li>
+          );
         })}
       </ul>
     </form>
   );
 };
 
+
+PlacesSorting.propTypes = {
+  placesOptionActive: PropTypes.string.isRequired,
+  onActiveOption: PropTypes.any.isRequired
+
+};
 
 const mapStateToProps = (state) => ({
   placesOptionActive: state.placesOptionActive,
