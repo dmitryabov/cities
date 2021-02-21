@@ -3,10 +3,11 @@ import leaflet from "leaflet";
 
 import PropTypes from "prop-types";
 import {offerType} from "../../propTypes/cities";
+import {connect} from "react-redux";
 
 import "leaflet/dist/leaflet.css";
 
-const MapOffers = ({offers, classNameMap}) => {
+const MapOffers = ({offers, classNameMap, activePin}) => {
   const mapRef = useRef();
 
   useEffect(() => {
@@ -30,24 +31,32 @@ const MapOffers = ({offers, classNameMap}) => {
 
     const icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
-      iconSize: [30, 30],
+      iconSize: [27, 39],
+    });
+
+    const iconActive = leaflet.icon({
+      iconUrl: `img/pin-active.svg`,
+      iconSize: [27, 39],
     });
 
     offers.forEach((elem) => {
+      let pinIcon = icon;
+      elem.id === activePin ? (pinIcon = iconActive) : (pinIcon = icon);
+
       leaflet
         .marker(
             {
               lat: elem.location.latitude,
               lng: elem.location.longitude,
             },
-            {icon}
+            {icon: pinIcon}
         )
         .addTo(mapRef.current);
     });
     return () => {
       mapRef.current.remove();
     };
-  }, [offers]);
+  }, [offers, activePin]);
 
   return (
     <section className={`${classNameMap} map`} id="map" ref={mapRef}></section>
@@ -57,6 +66,12 @@ const MapOffers = ({offers, classNameMap}) => {
 MapOffers.propTypes = {
   offers: PropTypes.arrayOf(offerType),
   classNameMap: PropTypes.string,
+  activePin: PropTypes.number.isRequired,
 };
 
-export default MapOffers;
+const mapStateToProps = (state) => ({
+  activePin: state.activePin,
+});
+
+export {MapOffers};
+export default connect(mapStateToProps, null)(MapOffers);

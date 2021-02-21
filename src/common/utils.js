@@ -1,4 +1,4 @@
-import { PlacesOptions } from "../const";
+import {PlacesOptions} from "../const";
 
 export const getRatingLevel = (level) => {
   return (level * 100) / 5 + `%`;

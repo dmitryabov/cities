@@ -1,8 +1,8 @@
 export const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
-  FILL_OFFERS: `FILL_OFFERS`,
   PLACES_OPTION_ACTIVE: `PLACES_OPTION_ACTIVE`,
-  PLACES_OPTION_ACTIVE: `PLACES_OPTION_ACTIVE`,
+  ACTIVE_PIN: `ACTIVE_PIN`,
+  RESET_ACTIVE_PIN: ` RESET_ACTIVE_PIN`,
 };
 
 export const ActionCreator = {
@@ -10,12 +10,18 @@ export const ActionCreator = {
     type: ActionType.CHANGE_CITY,
     payload: activeCity,
   }),
-  resetGame: (newOffers) => ({
-    type: ActionType.FILL_OFFERS,
-    payload: newOffers,
-  }),
+
   changeActiveOption: (activeOption) => ({
     type: ActionType.PLACES_OPTION_ACTIVE,
     payload: activeOption,
+  }),
+
+  changeActivePin: (activePin) => ({
+    type: ActionType.ACTIVE_PIN,
+    payload: activePin,
+  }),
+
+  resetActivePin: () => ({
+    type: ActionType.RESET_ACTIVE_PIN,
   }),
 };

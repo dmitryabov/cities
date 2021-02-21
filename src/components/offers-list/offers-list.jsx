@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import Card from '../card/card';
 import PropTypes from 'prop-types';
 import {offerType} from '../../propTypes/cities';
-import {connect} from 'react-redux';
 
 
 const OffersList = (props) => {
@@ -25,7 +24,6 @@ const OffersList = (props) => {
 OffersList.propTypes = {
   offers: PropTypes.arrayOf(offerType),
 };
-
 
 
 export default OffersList;

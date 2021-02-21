@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 
 
-const Location = ({cityName, activeCity, id, onActiveCity}) => {
+const Location = ({cityName, activeCity, onActiveCity}) => {
 
   const onLocationClicjHandler = () => {
     onActiveCity(cityName);

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {reviewsType} from '../../propTypes/reviews';
 import {getRatingLevel} from '../../common/utils';
 
