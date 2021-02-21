@@ -8,6 +8,7 @@ import {getRatingLevel} from '../../common/utils';
 import ReviewsList from '../reviews-list/reviews-list';
 import MapOffers from '../map/map';
 import PlacesList from '../places-list/places-list';
+import {connect} from 'react-redux';
 
 
 const Property = (props) => {
@@ -166,6 +167,14 @@ const Property = (props) => {
 Property.propTypes = {
   offer: offerType,
   cardReviews: PropTypes.arrayOf(reviewsType),
+  offers: PropTypes.arrayOf(offerType),
 };
 
-export default Property;
+
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+});
+
+
+export {Property};
+export default connect(mapStateToProps, null)(Property);

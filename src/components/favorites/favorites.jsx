@@ -3,6 +3,7 @@ import HeaderPage from '../header/header';
 import PropTypes from 'prop-types';
 import {offerType} from '../../propTypes/cities';
 import FavoritesList from '../favorites__list/favorites__list';
+import {connect} from 'react-redux';
 
 
 const Favorites = (props) => {
@@ -34,4 +35,10 @@ Favorites.propTypes = {
   offers: PropTypes.arrayOf(offerType),
 };
 
-export default Favorites;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+});
+
+
+export {Favorites};
+export default connect(mapStateToProps, null)(Favorites);
