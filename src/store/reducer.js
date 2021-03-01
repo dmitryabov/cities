@@ -1,12 +1,12 @@
-import {ActionType} from "./action";
-import offers from "../mocks/offers";
-import {CityNames, FIRST_CITY, PlacesOptions} from "../const";
+import { ActionType } from "./action";
+import { CityNames, FIRST_CITY, PlacesOptions } from "../const";
 
 const initialState = {
   city: CityNames[FIRST_CITY],
-  offers,
+  offers: [],
   placesOptionActive: PlacesOptions[0],
   activePin: null,
+  isDataLoaded: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -34,9 +34,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         activePin: null,
       };
+
+    case ActionType.LOAD_HOTELS:
+      return {
+        ...state,
+        offers: action.payload,
+        isDataLoaded: true,
+      };
   }
 
   return state;
 };
 
-export {reducer};
+export { reducer };

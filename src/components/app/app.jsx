@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Main from '../main/main';
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
@@ -9,16 +9,30 @@ import Login from '../login/login';
 import {offerType} from '../../propTypes/cities';
 import {reviewsType} from '../../propTypes/reviews';
 import {connect} from 'react-redux';
+import { fetchOffersList } from '../../store/api-actions';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 
 const App = (props) => {
-  const {offers, reviews} = props;
+  const {offers, reviews, onLoadData, isDataLoaded} = props;
+
+  useEffect(() => {
+    if (!isDataLoaded) {
+      onLoadData();
+    }
+  }, [isDataLoaded]);
+
+  if (!isDataLoaded) {
+    return (
+     <LoadingScreen/>
+    );
+  }
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Main />
+          <Main offers={offers}/>
         </Route>
         <Route exact path="/login">
           <Login />
@@ -54,8 +68,15 @@ App.propTypes = {
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
+  isDataLoaded: state.isDataLoaded
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData() {
+    dispatch(fetchOffersList());
+  },
 });
 
 
 export {App};
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

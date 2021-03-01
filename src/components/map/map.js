@@ -1,13 +1,13 @@
-import React, {useEffect, useRef} from "react";
+import React, { useEffect, useRef } from "react";
 import leaflet from "leaflet";
 
 import PropTypes from "prop-types";
-import {offerType} from "../../propTypes/cities";
-import {connect} from "react-redux";
+import { offerType } from "../../propTypes/cities";
+import { connect } from "react-redux";
 
 import "leaflet/dist/leaflet.css";
 
-const MapOffers = ({offers, classNameMap, activePin}) => {
+const MapOffers = ({ offers, classNameMap, activePin }) => {
   const mapRef = useRef();
 
   useEffect(() => {
@@ -22,10 +22,10 @@ const MapOffers = ({offers, classNameMap, activePin}) => {
 
     leaflet
       .tileLayer(
-          `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`,
-          {
-            attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`,
-          }
+        `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`,
+        {
+          attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`,
+        }
       )
       .addTo(mapRef.current);
 
@@ -45,11 +45,11 @@ const MapOffers = ({offers, classNameMap, activePin}) => {
 
       leaflet
         .marker(
-            {
-              lat: elem.location.latitude,
-              lng: elem.location.longitude,
-            },
-            {icon: pinIcon}
+          {
+            lat: elem.location.latitude,
+            lng: elem.location.longitude,
+          },
+          { icon: pinIcon }
         )
         .addTo(mapRef.current);
     });
@@ -66,12 +66,12 @@ const MapOffers = ({offers, classNameMap, activePin}) => {
 MapOffers.propTypes = {
   offers: PropTypes.arrayOf(offerType),
   classNameMap: PropTypes.string,
-  activePin: PropTypes.number.isRequired,
+  activePin: PropTypes.number,
 };
 
 const mapStateToProps = (state) => ({
   activePin: state.activePin,
 });
 
-export {MapOffers};
+export { MapOffers };
 export default connect(mapStateToProps, null)(MapOffers);

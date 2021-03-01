@@ -15,3 +15,8 @@ export const PlacesOptions = [
   `Price: high to low`,
   `Top rated first`,
 ];
+
+export const APIRoute = {
+  HOTELS: `/hotels`,
+  LOGIN: `/login`,
+};

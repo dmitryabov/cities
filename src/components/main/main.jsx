@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import HeaderPage from '../header/header';
 import OffersList from '../offers-list/offers-list';
@@ -13,6 +13,7 @@ import {sortOffers} from '../../common/utils';
 
 const Main = (props) => {
   const {offers, city, placesOptionActive} = props;
+
 
   const copyOffers = offers.slice();
 
@@ -53,21 +54,21 @@ const Main = (props) => {
         </div>
       </main>
     </div>
-
   );
 };
 
 Main.propTypes = {
   offers: PropTypes.arrayOf(offerType),
   city: PropTypes.string.isRequired,
-  placesOptionActive: PropTypes.number.isRequired
+  placesOptionActive: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  offers: state.offers,
   placesOptionActive: state.placesOptionActive,
 });
+
+
 
 
 export {Main};
