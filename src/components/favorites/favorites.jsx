@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import HeaderPage from '../header/header';
 import PropTypes from 'prop-types';
 import {offerType} from '../../propTypes/cities';

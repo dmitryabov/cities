@@ -2,7 +2,8 @@ export const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
   PLACES_OPTION_ACTIVE: `PLACES_OPTION_ACTIVE`,
   ACTIVE_PIN: `ACTIVE_PIN`,
-  RESET_ACTIVE_PIN: ` RESET_ACTIVE_PIN`,
+  RESET_ACTIVE_PIN: `RESET_ACTIVE_PIN`,
+  LOAD_HOTELS: `LOAD_HOTELS`,
 };
 
 export const ActionCreator = {
@@ -23,5 +24,9 @@ export const ActionCreator = {
 
   resetActivePin: () => ({
     type: ActionType.RESET_ACTIVE_PIN,
+  }),
+  loadHotels: (offers) => ({
+    type: ActionType.LOAD_HOTELS,
+    payload: offers,
   }),
 };

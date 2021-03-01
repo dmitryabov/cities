@@ -16,6 +16,7 @@ const Property = (props) => {
   const {is_premium, is_favorite} = offer;
 
 
+
   return (
     <div className="page">
       <HeaderPage />
